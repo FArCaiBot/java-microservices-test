@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.farcai.ms_clientes.domain.model.Cliente;
 import com.farcai.ms_clientes.domain.ports.ClienteRepositoryPort;
+import com.farcai.ms_clientes.infrastructure.persistence.jpa.entity.ClienteEntity;
 import com.farcai.ms_clientes.infrastructure.persistence.jpa.mapper.ClienteMapper;
 import com.farcai.ms_clientes.infrastructure.persistence.jpa.repository.ClienteJpaRepository;
 
@@ -21,7 +22,15 @@ public class ClienteRepositoryAdapter implements ClienteRepositoryPort {
 
     @Override
     public Cliente save(Cliente cliente) {
-        return mapper.toDomain(clienteJpaRepository.save(mapper.toEntity(cliente)));
+        ClienteEntity entity = mapper.toEntity(cliente);
+        if (cliente.getId() != null) {
+            clienteJpaRepository.findById(cliente.getId()).ifPresent(existing -> {
+                if (existing.getPersona() != null && entity.getPersona() != null) {
+                    entity.getPersona().setId(existing.getPersona().getId());
+                }
+            });
+        }
+        return mapper.toDomain(clienteJpaRepository.save(entity));
     }
 
     @Override
