@@ -10,6 +10,7 @@ public class MovimientoMapper {
         e.setId(d.getId());
         e.setCuentaId(d.getCuentaId());
         e.setFecha(d.getFecha());
+        e.setSaldoInicial(d.getSaldoInicial());
         e.setTipo(d.getTipo());
         e.setValor(d.getValor());
         e.setSaldo(d.getSaldo());
@@ -21,6 +22,7 @@ public class MovimientoMapper {
                 .id(e.getId())
                 .cuentaId(e.getCuentaId())
                 .fecha(e.getFecha())
+                .saldoInicial(e.getSaldoInicial())
                 .tipo(e.getTipo())
                 .valor(e.getValor())
                 .saldo(e.getSaldo())

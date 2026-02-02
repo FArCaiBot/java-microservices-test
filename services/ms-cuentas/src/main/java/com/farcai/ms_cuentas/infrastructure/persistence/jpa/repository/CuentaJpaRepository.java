@@ -18,8 +18,14 @@ public interface CuentaJpaRepository extends JpaRepository<CuentaEntity, Long> {
 
     List<CuentaEntity> findByClienteId(Long clienteId);
 
+    Optional<CuentaEntity> findByNumeroCuenta(String numeroCuenta);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select c from CuentaEntity c where c.id = :id")
     Optional<CuentaEntity> findByIdForUpdate(@Param("id") Long id);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select c from CuentaEntity c where c.numeroCuenta = :numero")
+    Optional<CuentaEntity> findByNumeroCuentaForUpdate(@Param("numero") String numeroCuenta);
 
 }

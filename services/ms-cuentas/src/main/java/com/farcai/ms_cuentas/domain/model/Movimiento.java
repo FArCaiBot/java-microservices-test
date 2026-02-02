@@ -16,16 +16,20 @@ public class Movimiento {
     private final Long id;
     private final Long cuentaId;
     private final LocalDateTime fecha;
+    private final BigDecimal saldoInicial;
     private final TipoMovimiento tipo;
     private final BigDecimal valor;
     private final BigDecimal saldo;
 
-    public static Movimiento crear(Long cuentaId, LocalDateTime fecha, TipoMovimiento tipo, BigDecimal valor,
+    public static Movimiento crear(Long cuentaId, LocalDateTime fecha, BigDecimal saldoInicial, TipoMovimiento tipo,
+            BigDecimal valor,
             BigDecimal saldoResultante) {
         if (cuentaId == null)
             throw new ValidationException("cuentaId es requerido");
         if (fecha == null)
             throw new ValidationException("fecha es requerida");
+        if (saldoInicial == null)
+            throw new ValidationException("saldoInicial es requerido");
         if (tipo == null)
             throw new ValidationException("tipo es requerido");
         if (valor == null)
@@ -39,6 +43,7 @@ public class Movimiento {
                 .id(null)
                 .cuentaId(cuentaId)
                 .fecha(fecha)
+                .saldoInicial(saldoInicial)
                 .tipo(tipo)
                 .valor(valor)
                 .saldo(saldoResultante)

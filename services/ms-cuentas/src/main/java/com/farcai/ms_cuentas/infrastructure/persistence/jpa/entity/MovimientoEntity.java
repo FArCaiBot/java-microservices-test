@@ -38,6 +38,9 @@ public class MovimientoEntity {
     @Column(name = "fecha", nullable = false)
     private LocalDateTime fecha;
 
+    @Column(name = "saldo_inicial", nullable = false, precision = 19, scale = 2)
+    private BigDecimal saldoInicial;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false, length = 20)
     private TipoMovimiento tipo;

@@ -13,6 +13,10 @@ public interface CuentaRepositoryPort {
 
     Optional<Cuenta> findByIdForUpdate(Long id);
 
+    Optional<Cuenta> findByNumeroCuenta(String numeroCuenta);
+
+    Optional<Cuenta> findByNumeroCuentaForUpdate(String numeroCuenta);
+
     List<Cuenta> findByClienteId(Long clienteId);
 
     boolean existsByNumeroCuenta(String numeroCuenta);

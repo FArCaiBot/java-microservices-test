@@ -25,18 +25,18 @@ public class RegistrarMovimientoUseCase {
 
     @Transactional
     public Movimiento ejecutar(RegistrarMovimientoCommand cmd) {
-        if (cmd.cuentaId() == null)
-            throw new ValidationException("cuentaId es requerido");
-        if (cmd.tipo() == null)
-            throw new ValidationException("tipo es requerido");
+        if (cmd.numeroCuenta() == null)
+            throw new ValidationException("numeroCuenta es requerido");
         if (cmd.valor() == null)
             throw new ValidationException("valor es requerido");
-        if (cmd.valor().compareTo(BigDecimal.ZERO) <= 0)
-            throw new ValidationException("valor debe ser > 0");
+        
+        if(cmd.valor().compareTo(BigDecimal.ZERO) == 0) {
+            throw new ValidationException("El valor del movimiento no puede ser cero");
+        }
 
         // lock de la fila para evitar retiros concurrentes con saldo inconsistente
-        Cuenta cuenta = cuentaRepo.findByIdForUpdate(cmd.cuentaId())
-                .orElseThrow(() -> new ValidationException("Cuenta no existe: " + cmd.cuentaId()));
+        Cuenta cuenta = cuentaRepo.findByNumeroCuentaForUpdate(cmd.numeroCuenta())
+                .orElseThrow(() -> new ValidationException("Cuenta no existe: " + cmd.numeroCuenta()));
 
         if (Boolean.FALSE.equals(cuenta.getEstado())) {
             throw new ValidationException("Cuenta inactiva");
@@ -45,23 +45,20 @@ public class RegistrarMovimientoUseCase {
         BigDecimal saldoActual = cuenta.getSaldo();
         BigDecimal nuevoSaldo;
 
-        if (cmd.tipo() == TipoMovimiento.DEPOSITO) {
-            nuevoSaldo = saldoActual.add(cmd.valor());
-        } else {
-            // RETIRO
-            nuevoSaldo = saldoActual.subtract(cmd.valor());
-            if (nuevoSaldo.compareTo(BigDecimal.ZERO) < 0) {
-                throw new SaldoNoDisponibleException("Saldo no disponible");
-            }
+        nuevoSaldo = saldoActual.add(cmd.valor());
+        if (nuevoSaldo.compareTo(BigDecimal.ZERO) < 0) {
+            throw new SaldoNoDisponibleException("Saldo no disponible para el retiro");
         }
 
         Cuenta actualizada = cuenta.aplicarNuevoSaldo(nuevoSaldo);
         cuentaRepo.save(actualizada);
 
         LocalDateTime fecha = (cmd.fecha() != null) ? cmd.fecha() : LocalDateTime.now();
-        BigDecimal valorMovimiento = (cmd.tipo() == TipoMovimiento.RETIRO) ? cmd.valor().negate() : cmd.valor();
 
-        Movimiento mov = Movimiento.crear(cuenta.getId(), fecha, cmd.tipo(), valorMovimiento, nuevoSaldo);
+        Movimiento mov = Movimiento.crear(cuenta.getId(), fecha,
+                saldoActual,
+                cmd.valor().compareTo(BigDecimal.ZERO) < 0 ? TipoMovimiento.RETIRO : TipoMovimiento.DEPOSITO,
+                cmd.valor(), nuevoSaldo);
         return movimientoRepo.save(mov);
     }
 

@@ -51,4 +51,6 @@ public class Cuenta {
         return this.toBuilder().estado(false).build();
     }
 
+    
+
 }

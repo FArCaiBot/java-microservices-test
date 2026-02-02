@@ -44,4 +44,15 @@ public class CuentaRepositoryAdapter implements CuentaRepositoryPort {
         return jpa.existsByNumeroCuenta(numeroCuenta);
     }
 
+    @Override
+    public Optional<Cuenta> findByNumeroCuenta(String numeroCuenta) {
+        return jpa.findByNumeroCuenta(numeroCuenta).map(mapper::toDomain);
+    }
+
+    @Override
+    public Optional<Cuenta> findByNumeroCuentaForUpdate(String numeroCuenta) {
+        return jpa.findByNumeroCuentaForUpdate(numeroCuenta).map(mapper::toDomain);
+
+    }
+
 }

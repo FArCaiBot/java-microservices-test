@@ -5,7 +5,6 @@ CREATE TABLE cuenta (
   saldo NUMERIC(19,2) NOT NULL,
   estado BOOLEAN NOT NULL DEFAULT TRUE,
   cliente_id BIGINT NOT NULL,
-  version BIGINT NOT NULL DEFAULT 0,
   CONSTRAINT uk_cuenta_numero UNIQUE (numero_cuenta)
 );
 
@@ -13,6 +12,7 @@ CREATE TABLE movimiento (
   id BIGSERIAL PRIMARY KEY,
   cuenta_id BIGINT NOT NULL,
   fecha TIMESTAMP NOT NULL,
+  saldo_inicial NUMERIC(19,2) NOT NULL,
   tipo VARCHAR(20) NOT NULL,
   valor NUMERIC(19,2) NOT NULL,
   saldo NUMERIC(19,2) NOT NULL,
