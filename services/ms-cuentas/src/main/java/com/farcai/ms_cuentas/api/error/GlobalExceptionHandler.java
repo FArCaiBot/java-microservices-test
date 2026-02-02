@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.farcai.ms_cuentas.domain.exceptions.ClienteInvalidoException;
 import com.farcai.ms_cuentas.domain.exceptions.SaldoNoDisponibleException;
 import com.farcai.ms_cuentas.domain.exceptions.ValidationException;
 
@@ -30,6 +31,12 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError dtoValidation(MethodArgumentNotValidException ex) {
         return new ApiError("VALIDATION_ERROR", "Request inválido", Instant.now());
+    }
+
+    @ExceptionHandler(ClienteInvalidoException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ApiError clienteInvalido(ClienteInvalidoException ex) {
+        return new ApiError("CLIENTE_INVALIDO", ex.getMessage(), Instant.now());
     }
 
 }

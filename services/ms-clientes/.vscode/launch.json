@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MsClientesApplication<ms-clientes>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.farcai.ms_clientes.MsClientesApplication",
+            "projectName": "ms-clientes",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
