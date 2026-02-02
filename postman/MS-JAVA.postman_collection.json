@@ -1,0 +1,235 @@
+{
+  "info": {
+    "_postman_id": "8885018a-aedb-4560-b002-3681a97bd43d",
+    "name": "MS-JAVA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "19057329"
+  },
+  "item": [
+    {
+      "name": "Cliente",
+      "item": [
+        {
+          "name": "Listar todos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8081/clientes",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8081/clientes/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "clientes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Crear",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nombre\":\"{{$randomFullName}}\",\r\n    \"genero\":\"Masculino\", \r\n    \"edad\":28, \r\n    \"identificacion\":\"09348733\", \r\n    \"direccion\":\"{{$randomDirectoryPath}}\",\r\n    \"telefono\": \"{{$randomPhoneNumber}}\",\r\n    \"contrasena\": \"{{$randomPassword}}\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/clientes",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Editar",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nombre\":\"{{$randomFullName}}\",\r\n    \"genero\":\"Masculino\", \r\n    \"edad\":28, \r\n    \"identificacion\":\"41234555\", \r\n    \"direccion\":\"{{$randomDirectoryPath}}\",\r\n    \"telefono\": \"{{$randomPhoneNumber}}\",\r\n    \"contrasena\": \"{{$randomPassword}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8081/clientes/1",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "clientes",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Desactivar cliente",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:8081/clientes/6",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "clientes",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cuenta",
+      "item": [
+        {
+          "name": "Crear cuenta",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"numeroCuenta\": \"5855451\",\r\n    \"tipoCuenta\": \"Ahorros\",\r\n    \"saldoInicial\": 45,\r\n    \"clienteId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8082/cuentas",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "cuentas"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Movimientos",
+      "item": [
+        {
+          "name": "Realizar movimiento",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"numeroCuenta\": \"5855451\",\r\n    \"valor\": 750\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8082/movimientos",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "movimientos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reporte",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"numeroCuenta\": \"585545\",\r\n    \"valor\": 75\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8082/movimientos/reporte?clienteId=1&desde=2026-02-01&hasta=2026-02-02",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "movimientos",
+                "reporte"
+              ],
+              "query": [
+                {
+                  "key": "clienteId",
+                  "value": "1"
+                },
+                {
+                  "key": "desde",
+                  "value": "2026-02-01"
+                },
+                {
+                  "key": "hasta",
+                  "value": "2026-02-02"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
