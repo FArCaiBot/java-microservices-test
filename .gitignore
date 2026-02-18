@@ -3,6 +3,9 @@
 
 #!! ERROR: docker is undefined. Use list command to see defined gitignore types !!#
 
+### intellij idea
+.idea
+
 ### vscode
 /.vscode
 

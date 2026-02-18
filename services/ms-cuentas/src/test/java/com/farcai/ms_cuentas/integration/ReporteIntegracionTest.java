@@ -22,9 +22,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import com.farcai.ms_cuentas.api.dto.request.CrearCuentaRequest;
-import com.farcai.ms_cuentas.api.dto.request.RegistrarMovimientoRequest;
-import com.farcai.ms_cuentas.api.dto.response.ReporteEstadoCuentaResponse;
+import com.farcai.ms_cuentas.dto.request.CrearCuentaRequest;
+import com.farcai.ms_cuentas.dto.request.RegistrarMovimientoRequest;
+import com.farcai.ms_cuentas.dto.response.ReporteEstadoCuentaResponse;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -94,3 +94,4 @@ public class ReporteIntegracionTest {
         assertFalse(reporteResp.getBody().cuentas().isEmpty());
     }
 }
+
