@@ -33,6 +33,15 @@ Servicios levantados:
 - ms-cuentas: http://localhost:8082
 - RabbitMQ UI: http://localhost:15672
 
+Swagger/OpenAPI:
+
+- ms-clientes:
+  - UI: http://localhost:8081/swagger-ui/index.html
+  - JSON: http://localhost:8081/v3/api-docs
+- ms-cuentas:
+  - UI: http://localhost:8082/swagger-ui/index.html
+  - JSON: http://localhost:8082/v3/api-docs
+
 ## Ejecutar local sin Docker (por servicio)
 
 Levanta primero RabbitMQ y las bases de datos (puedes usar el
